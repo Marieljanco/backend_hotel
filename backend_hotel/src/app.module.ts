@@ -9,6 +9,8 @@ import { AppService } from './app.service';
 // import { CancionesModule } from './canciones/canciones.module';
 // import { UsuariosModule } from './usuarios/usuarios.module';
 // import { AuthModule } from './auth/auth.module';
+import { ClientesModule } from './clientes/clientes.module';
+import { Cliente } from './clientes/entities/cliente.entity';
 
 @Module({
   imports: [
@@ -20,10 +22,12 @@ import { AppService } from './app.service';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [__dirname + '**/*.entity.ts'],
+      //entities: [__dirname + '**/*.entity.ts'],
+      entities: [Cliente],
       synchronize: true,
       autoLoadEntities: true,
     }),
+    ClientesModule,
     // InterpretesModule,
     // GenerosModule,
     // AlbumesModule,
