@@ -11,6 +11,13 @@ import { AppService } from './app.service';
 // import { AuthModule } from './auth/auth.module';
 import { ClientesModule } from './clientes/clientes.module';
 import { Cliente } from './clientes/entities/cliente.entity';
+import { PersonalModule } from './personal/personal.module';
+import { ReservasModule } from './reservas/reservas.module';
+import { HabitacionesModule } from './habitaciones/habitaciones.module';
+import { ServiciosModule } from './servicios/servicios.module';
+import { CalendarioModule } from './calendario/calendario.module';
+import { PagoModule } from './pago/pago.module';
+import { NotificacionesModule } from './notificaciones/notificaciones.module';
 
 @Module({
   imports: [
@@ -28,6 +35,13 @@ import { Cliente } from './clientes/entities/cliente.entity';
       autoLoadEntities: true,
     }),
     ClientesModule,
+    PersonalModule,
+    ReservasModule,
+    HabitacionesModule,
+    ServiciosModule,
+    CalendarioModule,
+    PagoModule,
+    NotificacionesModule,
     // InterpretesModule,
     // GenerosModule,
     // AlbumesModule,
