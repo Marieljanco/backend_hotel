@@ -1,8 +1,9 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { HabitacionesService } from './habitaciones.service';
-import { CreateHabitacioneDto } from './dto/create-habitacione.dto';
-import { UpdateHabitacioneDto } from './dto/update-habitacione.dto';
-
+import { CreateHabitacioneDto } from './dto/create-habitacion.dto';
+import { UpdateHabitacioneDto } from './dto/update-habitacion.dto';
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('habitaciones')
 @Controller('habitaciones')
 export class HabitacionesController {
   constructor(private readonly habitacionesService: HabitacionesService) {}

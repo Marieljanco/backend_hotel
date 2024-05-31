@@ -1,4 +1,11 @@
-import { Entity, Column } from 'typeorm';
+import { Habitacion } from 'src/habitaciones/entities/habitacion.entity';
+import { Reserva } from 'src/reservas/entities/reserva.entity';
+import { 
+  Entity, 
+  Column, 
+  ManyToMany,
+  JoinTable
+} from 'typeorm';
 
 @Entity('servicios')
 export class Servicios {
@@ -16,4 +23,12 @@ export class Servicios {
 
   @Column('int', { nullable: false })
   duracion: number;
+
+  @ManyToMany(() => Habitacion, habitacion => habitacion.servicio)
+  @JoinTable(/*{ name: 'id_habitacion', referencedColumnName: 'id' }*/ )
+  habitacion: Habitacion;
+
+  @ManyToMany(() => Reserva, reserva => reserva.servicio)
+  @JoinTable(/*{ name: 'id_habitacion', referencedColumnName: 'id' }*/ )
+  reserva: Reserva;
 }

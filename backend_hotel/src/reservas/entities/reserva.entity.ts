@@ -1,10 +1,24 @@
-
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Calendario } from 'src/calendario/entities/calendario.entity';
+import { Cliente } from 'src/clientes/entities/cliente.entity';
+import { Habitacion } from 'src/habitaciones/entities/habitacion.entity';
+import { Pago } from 'src/pago/entities/pago.entity';
+import { Personal } from 'src/personal/entities/personal.entity';
+import { Servicios } from 'src/servicios/entities/servicio.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('reservas')
-export class Reservas {
+export class Reserva {
   @PrimaryGeneratedColumn()
-  id_de_reserva: number;
+  id: number;
 
   @Column('varchar', { length: 100, nullable: false })
   fecha_inicio: string;
@@ -23,4 +37,27 @@ export class Reservas {
 
   @Column()
   descripcion: string;
+
+  //habitacio-reserva
+  @OneToOne(() => Habitacion, (habitacion) => habitacion.reserva)
+  habitaciones: Habitacion;
+  //calendario-reserva
+  @ManyToOne(() => Calendario, (calendario) => calendario.reserva)
+  @JoinColumn({ name: 'id_calendario', referencedColumnName: 'id' })
+  calendario: Calendario;
+  //pago-reserva
+  @OneToOne(() => Pago, (pago) => pago.reserva)
+  pago: Pago;
+  //cliente-reserva
+  @ManyToOne(() => Cliente, cliente => cliente.reserva)
+  @JoinColumn({ name: 'id_cliente', referencedColumnName: 'id' })
+  cliente: Cliente;
+  //personal-reserva
+  @ManyToOne(() => Personal, personal => personal.reserva)
+  @JoinColumn({ name: 'id_personal', referencedColumnName: 'id' })
+  personal: Personal;
+
+  @ManyToMany(() => Servicios, servicio => servicio.reserva)
+  @JoinTable(/*{ name: 'id_habitacion', referencedColumnName: 'id' }*/ )
+  servicio: Servicios;
 }

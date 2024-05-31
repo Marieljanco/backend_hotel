@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Reserva } from 'src/reservas/entities/reserva.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('calendario')
 export class Calendario {
@@ -14,6 +15,7 @@ export class Calendario {
   @Column('varchar', { length: 15, nullable: false })
   disponibilidad: string;
 
-  
+  @OneToMany(() => Reserva, reserva => reserva.calendario)
+  reserva: Reserva[];
 }
 

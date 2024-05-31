@@ -3,14 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-// import { InterpretesModule } from './interpretes/interpretes.module';
-// import { GenerosModule } from './generos/generos.module';
-// import { AlbumesModule } from './albumes/albumes.module';
-// import { CancionesModule } from './canciones/canciones.module';
-// import { UsuariosModule } from './usuarios/usuarios.module';
 // import { AuthModule } from './auth/auth.module';
 import { ClientesModule } from './clientes/clientes.module';
-import { Cliente } from './clientes/entities/cliente.entity';
+//import { Cliente } from './clientes/entities/cliente.entity';
 import { PersonalModule } from './personal/personal.module';
 import { ReservasModule } from './reservas/reservas.module';
 import { HabitacionesModule } from './habitaciones/habitaciones.module';
@@ -29,8 +24,8 @@ import { NotificacionesModule } from './notificaciones/notificaciones.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      //entities: [__dirname + '**/*.entity.ts'],
-      entities: [Cliente],
+      entities: [__dirname + '**/*.entity.ts'],
+      //entities: [Cliente],
       synchronize: true,
       autoLoadEntities: true,
     }),
@@ -42,10 +37,6 @@ import { NotificacionesModule } from './notificaciones/notificaciones.module';
     CalendarioModule,
     PagoModule,
     NotificacionesModule,
-    // InterpretesModule,
-    // GenerosModule,
-    // AlbumesModule,
-    // CancionesModule,
     // UsuariosModule,
     // AuthModule,
   ],

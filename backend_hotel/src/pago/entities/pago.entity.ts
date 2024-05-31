@@ -1,5 +1,6 @@
 
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Reserva } from 'src/reservas/entities/reserva.entity';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('pago')
 export class Pago {
@@ -14,7 +15,9 @@ export class Pago {
 
   @Column('varchar', { length: 15, nullable: false })
   estado_del_pago: string;
-
   
+  @OneToOne(() => Reserva, reserva => reserva.pago)
+  reserva: Reserva;
+
 }
 
