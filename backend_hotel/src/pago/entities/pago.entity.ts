@@ -1,4 +1,3 @@
-
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('pago')
@@ -6,7 +5,7 @@ export class Pago {
   @PrimaryGeneratedColumn()
   id_transacion: number;
 
-  @Column('varchar', { length: 100, nullable: false })
+  @Column('decimal', { precision: 10, scale: 2, nullable: false })
   monto: number;
 
   @Column('varchar', { length: 100, nullable: false })
@@ -14,7 +13,4 @@ export class Pago {
 
   @Column('varchar', { length: 15, nullable: false })
   estado_del_pago: string;
-
-  
 }
-

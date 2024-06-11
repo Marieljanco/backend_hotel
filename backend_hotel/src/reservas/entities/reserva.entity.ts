@@ -1,26 +1,35 @@
+import { Cliente } from 'src/clientes/entities/cliente.entity';
+import { Habitacion } from 'src/habitaciones/entities/habitacion.entity';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+} from 'typeorm';
 
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
-@Entity('reservas')
-export class Reservas {
+@Entity('reserva')
+export class Reserva {
   @PrimaryGeneratedColumn()
-  id_de_reserva: number;
+  id: number;
 
-  @Column('varchar', { length: 100, nullable: false })
-  fecha_inicio: string;
+  @Column('date')
+  fecha_reserva: Date;
 
-  @Column('varchar', { length: 100, nullable: false })
-  fin_reserva: string;
+  @Column('date')
+  fecha_entrada: Date;
 
-  @Column('varchar', { length: 15, nullable: false })
-  tipo_de_habitacion: string;
+  @Column('date')
+  fecha_salida: Date;
 
-  @Column()
-  estado_de_la_reserva: string;
+  @Column('varchar', { length: 100 })
+  estado: string;
 
-  @Column()
-  precio_por_noche: string;
+  @ManyToOne(() => Cliente, cliente => cliente.reservas)
+  @JoinColumn({ name: 'id_cliente', referencedColumnName: 'id' })
+  cliente: Cliente;
 
-  @Column()
-  descripcion: string;
+  @ManyToOne(() => Habitacion, habitacion => habitacion.reservas)
+  @JoinColumn({ name: 'numero_habitacion' })
+  habitacion: Habitacion;
 }

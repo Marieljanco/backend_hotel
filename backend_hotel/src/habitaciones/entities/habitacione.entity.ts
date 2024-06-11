@@ -1,19 +1,36 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { CreateHabitacionDto } from './dto/create-habitacion.dto';
+import { UpdateHabitacionDto } from './dto/update-habitacion.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Habitacion } from './entities/habitacion.entity';
+import { Repository } from 'typeorm';
 
-@Entity('habitaciones')
-export class Habitaciones {
-  @PrimaryGeneratedColumn()
-  numero_habitacion: number;
+@Injectable()
+export class HabitacionService {
+  constructor(
+    @InjectRepository(Habitacion)
+    private habitacionRepository: Repository<Habitacion>,
+  ) {}
 
-  @Column('varchar', { length: 100, nullable: false })
-  tipo_habitacion: string;
+  async create(createHabitacionDto: CreateHabitacionDto): Promise<Habitacion> {
+    const habitacion = this.habitacionRepository.create(createHabitacionDto);
+    return this.habitacionRepository.save(habitacion);
+  }
 
-  @Column('varchar', { length: 100, nullable: false })
-  estado_de_disponibilidad: string;
+  async findAll(): Promise<Habitacion[]> {
+    return this.habitacionRepository.find();
+  }
 
-  @Column('decimal', { precision: 10, scale: 2, nullable: false })
-  precio_por_noche: number;
+  async findOne(id: number): Promise<Habitacion> {
+    return this.habitacionRepository.findOne(id);
+  }
 
-  @Column('text', { nullable: false })
-  descripcion: string;
+  async update(id: number, updateHabitacionDto: UpdateHabitacionDto): Promise<Habitacion> {
+    await this.habitacionRepository.update(id, updateHabitacionDto);
+    return this.habitacionRepository.findOne(id);
+  }
+
+  async remove(id: number): Promise<void> {
+    await this.habitacionRepository.delete(id);
+  }
 }

@@ -1,6 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCalendarioDto } from './dto/create-calendario.dto';
 import { UpdateCalendarioDto } from './dto/update-calendario.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Calendario } from './entities/calendario.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class CalendarioService {

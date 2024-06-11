@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Reserva } from 'src/reservas/entities/reserva.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('cliente')
 export class Cliente {
@@ -16,4 +17,7 @@ export class Cliente {
 
   @Column()
   telefono: number;
+
+  @OneToMany(() => Reserva, reserva => reserva.cliente)
+  reservas: Reserva[];
 }

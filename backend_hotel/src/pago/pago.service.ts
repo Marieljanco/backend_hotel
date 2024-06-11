@@ -1,26 +1,41 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePagoDto } from './dto/create-pago.dto';
 import { UpdatePagoDto } from './dto/update-pago.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Pago } from './entities/pago.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PagoService {
-  create(createPagoDto: CreatePagoDto) {
-    return 'This action adds a new pago';
+  constructor(
+    @InjectRepository(Pago) private pagosRepository: Repository<Pago>,
+  ) {}
+
+  async create(createPagoDto: CreatePagoDto): Promise<Pago> {
+    const pago = this.pagosRepository.create(createPagoDto);
+    return this.pagosRepository.save(pago);
   }
 
-  findAll() {
-    return `This action returns all pago`;
+  async findAll(): Promise<Pago[]> {
+    return this.pagosRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pago`;
+  async findOne(id_transacion: number): Promise<Pago> {
+    const pago = await this.pagosRepository.findOneBy({ id_transacion });
+    if (!pago) {
+      throw new NotFoundException(`El pago con ID ${id_transacion} no existe`);
+    }
+    return pago;
   }
 
-  update(id: number, updatePagoDto: UpdatePagoDto) {
-    return `This action updates a #${id} pago`;
+  async update(id_transacion: number, updatePagoDto: UpdatePagoDto): Promise<Pago> {
+    const pago = await this.findOne(id_transacion);
+    const pagoUpdate = Object.assign(pago, updatePagoDto);
+    return this.pagosRepository.save(pagoUpdate);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pago`;
+  async remove(id_transacion: number): {
+    const pago = await this.findOne(id_transacion);
+    return this.pagosRepository.delete(pago.id_transacion);
   }
 }

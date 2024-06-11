@@ -1,10 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateServicioDto } from './dto/create-servicio.dto';
 import { UpdateServicioDto } from './dto/update-servicio.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Reposytory } from 'typeorm';
+import { Genero } from './entities/servicio.entity';
 
 @Injectable()
 export class ServiciosService {
-  create(createServicioDto: CreateServicioDto) {
+  constructor(@InjectRepository(Servicio) private serviciosRepository: Repository<Genero>) {}
+  async create(createServicioDto: CreateServicioDto): Promise<Genero> {
+    const existe = await this.serviciosRepository.findOneBy({
+      descripcion: createServiciosDto.descripcion.trim(),
+    });
     return 'This action adds a new servicio';
   }
 

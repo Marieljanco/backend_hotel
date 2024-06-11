@@ -1,6 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateReservaDto } from './dto/create-reserva.dto';
 import { UpdateReservaDto } from './dto/update-reserva.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Reserva } from './entities/reserva.entity';
+import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class ReservasService {

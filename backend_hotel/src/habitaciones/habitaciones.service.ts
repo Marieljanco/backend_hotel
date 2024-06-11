@@ -1,26 +1,52 @@
-import { Injectable } from '@nestjs/common';
-import { CreateHabitacioneDto } from './dto/create-habitacione.dto';
-import { UpdateHabitacioneDto } from './dto/update-habitacione.dto';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { CreateHabitacionDto } from './dto/create-habitacion.dto';
+import { UpdateHabitacionDto } from './dto/update-habitacion.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Habitacion } from './entities/habitacion.entity';
+import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class HabitacionesService {
-  create(createHabitacioneDto: CreateHabitacioneDto) {
-    return 'This action adds a new habitacione';
+  constructor(
+    @InjectRepository(Habitacion) private habitacionesRepository: Repository<Habitacion>,
+  ) {}
+
+  async create(createHabitacionDto: CreateHabitacionDto): Promise<Habitacion> {
+    const existe = await this.habitacionesRepository.findOneBy({
+      numero: createHabitacionDto.numero,
+    });
+
+    if (existe) {
+      throw new ConflictException('La habitación ya existe');
+    }
+
+    return this.habitacionesRepository.save({
+      numero: createHabitacionDto.numero.trim(),
+    });
   }
 
-  findAll() {
-    return `This action returns all habitaciones`;
+  async findAll(): Promise<Habitacion[]> {
+    return this.habitacionesRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} habitacione`;
+  async findOne(id: number): Promise<Habitacion> {
+    const habitacion = await this.habitacionesRepository.findOneBy({ id });
+    if (!habitacion) {
+      throw new NotFoundException(`La habitación ${id} no existe`);
+    }
+    return habitacion;
   }
 
-  update(id: number, updateHabitacioneDto: UpdateHabitacioneDto) {
-    return `This action updates a #${id} habitacione`;
+  async update(id: number, updateHabitacionDto: UpdateHabitacionDto): Promise<Habitacion> {
+    const habitacion = await this.findOne(id);
+    const habitacionUpdate = Object.assign(habitacion, updateHabitacionDto);
+    return this.habitacionesRepository.save(habitacionUpdate);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} habitacione`;
+  async remove(id: number) {
+    const habitacion = await this.findOne(id);
+    return this.habitacionesRepository.delete(habitacion.id);
   }
 }
+
