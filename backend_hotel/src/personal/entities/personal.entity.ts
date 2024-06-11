@@ -20,8 +20,8 @@ export class Personal {
   @Column('varchar', { length: 100, nullable: false })
   cargo: string;
 
-  @Column('varchar', { length: 100, nullable: false })
-  salario: string;
+  @Column('decimal', { length: 100, nullable: false })
+  salario: number;
 
   @Column('varchar', { length: 100, nullable: false })
   fechaContratacion: string;
