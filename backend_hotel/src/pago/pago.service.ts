@@ -7,9 +7,7 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class PagoService {
-  constructor(
-    @InjectRepository(Pago) private pagosRepository: Repository<Pago>,
-  ) {}
+  constructor(@InjectRepository(Pago) private pagosRepository: Repository<Pago>) {}
 
   async create(createPagoDto: CreatePagoDto): Promise<Pago> {
     const pago = this.pagosRepository.create(createPagoDto);
@@ -20,22 +18,22 @@ export class PagoService {
     return this.pagosRepository.find();
   }
 
-  async findOne(id_transacion: number): Promise<Pago> {
-    const pago = await this.pagosRepository.findOneBy({ id_transacion });
+  async findOne(id: number): Promise<Pago> {
+    const pago = await this.pagosRepository.findOneBy({ id });
     if (!pago) {
-      throw new NotFoundException(`El pago con ID ${id_transacion} no existe`);
+      throw new NotFoundException(`El pago con ID ${id} no existe`);
     }
     return pago;
   }
 
-  async update(id_transacion: number, updatePagoDto: UpdatePagoDto): Promise<Pago> {
-    const pago = await this.findOne(id_transacion);
+  async update(id: number, updatePagoDto: UpdatePagoDto): Promise<Pago> {
+    const pago = await this.findOne(id);
     const pagoUpdate = Object.assign(pago, updatePagoDto);
     return this.pagosRepository.save(pagoUpdate);
   }
 
-  async remove(id_transacion: number): {
-    const pago = await this.findOne(id_transacion);
-    return this.pagosRepository.delete(pago.id_transacion);
+  async remove(id: number) {
+    const cancion = await this.findOne(id);
+    return this.pagosRepository.delete(cancion.id);
   }
 }

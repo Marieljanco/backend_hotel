@@ -25,8 +25,8 @@ export class Habitacion {
 
   //reserva: any;
 //reserva habitacion
-  @OneToOne(() => Reserva, reserva => reserva.habitaciones)
-  reserva: Reserva[];
+  // @OneToOne(() => Reserva, reserva => reserva.habitaciones)
+  // reserva: Reserva[];
   //servi habi
   @ManyToMany(() => Servicios, servicios => servicios.habitacion)
   @JoinTable(/*{ name: 'id_habitacion', referencedColumnName: 'id' }*/ )

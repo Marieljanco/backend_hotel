@@ -1,14 +1,10 @@
 import { Reserva } from 'src/reservas/entities/reserva.entity';
-<<<<<<< HEAD
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-=======
 import { 
   Column, 
   Entity, 
   OneToMany, 
   PrimaryGeneratedColumn 
 } from 'typeorm';
->>>>>>> de482662a88516915742c31558f30072dabbf59b
 
 @Entity('clientes')
 export class Cliente {
@@ -26,16 +22,10 @@ export class Cliente {
 
   @Column('int', { nullable: false })
   telefono: number;
-<<<<<<< HEAD
-
-  @OneToMany(() => Reserva, reserva => reserva.cliente)
-  reservas: Reserva[];
-=======
   
   //reserva- clietne
   @OneToMany(() => Reserva, reserva => reserva.cliente)
   reserva: Reserva[];
   //notis- clietne
 
->>>>>>> de482662a88516915742c31558f30072dabbf59b
 }

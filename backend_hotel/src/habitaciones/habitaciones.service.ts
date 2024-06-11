@@ -5,7 +5,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Habitacion } from './entities/habitacion.entity';
 import { Repository } from 'typeorm';
 
-
 @Injectable()
 export class HabitacionesService {
   constructor(
@@ -14,7 +13,9 @@ export class HabitacionesService {
 
   async create(createHabitacionDto: CreateHabitacionDto): Promise<Habitacion> {
     const existe = await this.habitacionesRepository.findOneBy({
-      numero: createHabitacionDto.numero,
+      tipoHabitacion: createHabitacionDto.tipoHabitacion.trim(),
+      //interprete: { id: createHabitacionDto.idInterprete }, //corregir ver relacion
+      //numero: createHabitacionDto.numero,
     });
 
     if (existe) {
@@ -22,7 +23,8 @@ export class HabitacionesService {
     }
 
     return this.habitacionesRepository.save({
-      numero: createHabitacionDto.numero.trim(),
+      tipoHabitacion: createHabitacionDto.tipoHabitacion.trim(),
+      //numero: createHabitacionDto.numero,
     });
   }
 
@@ -33,7 +35,7 @@ export class HabitacionesService {
   async findOne(id: number): Promise<Habitacion> {
     const habitacion = await this.habitacionesRepository.findOneBy({ id });
     if (!habitacion) {
-      throw new NotFoundException(La habitación ${id} no existe);
+      throw new NotFoundException(`La habitación ${id} no existe`);
     }
     return habitacion;
   }
