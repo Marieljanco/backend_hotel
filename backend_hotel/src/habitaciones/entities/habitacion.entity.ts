@@ -12,23 +12,21 @@ import {
 @Entity('habitaciones')
 export class Habitacion {
   @PrimaryGeneratedColumn()
-  numero_habitacion: number;
+  id: number;
 
   @Column('varchar', { length: 100, nullable: false })
-  tipo_habitacion: string;
+  tipoHabitacion: string;
 
   @Column('varchar', { length: 100, nullable: false })
   estado_de_disponibilidad: string;
 
   @Column('decimal', { precision: 10, scale: 2, nullable: false })
-  precio_por_noche: number;
+  precio_por_hora: number;
 
-  @Column('varchar', { nullable: false })
-  descripcion: string;
-  reserva: any;
+  //reserva: any;
 //reserva habitacion
   @OneToOne(() => Reserva, reserva => reserva.habitaciones)
-  reservas: Reserva[];
+  reserva: Reserva[];
   //servi habi
   @ManyToMany(() => Servicios, servicios => servicios.habitacion)
   @JoinTable(/*{ name: 'id_habitacion', referencedColumnName: 'id' }*/ )

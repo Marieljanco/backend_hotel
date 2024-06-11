@@ -10,9 +10,9 @@ import { PersonalModule } from './personal/personal.module';
 import { ReservasModule } from './reservas/reservas.module';
 import { HabitacionesModule } from './habitaciones/habitaciones.module';
 import { ServiciosModule } from './servicios/servicios.module';
-import { CalendarioModule } from './calendario/calendario.module';
+
 import { PagoModule } from './pago/pago.module';
-import { NotificacionesModule } from './notificaciones/notificaciones.module';
+
 
 @Module({
   imports: [
@@ -34,9 +34,7 @@ import { NotificacionesModule } from './notificaciones/notificaciones.module';
     ReservasModule,
     HabitacionesModule,
     ServiciosModule,
-    CalendarioModule,
     PagoModule,
-    NotificacionesModule,
     // UsuariosModule,
     // AuthModule,
   ],

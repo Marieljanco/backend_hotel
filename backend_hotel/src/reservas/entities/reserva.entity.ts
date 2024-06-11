@@ -1,4 +1,3 @@
-import { Calendario } from 'src/calendario/entities/calendario.entity';
 import { Cliente } from 'src/clientes/entities/cliente.entity';
 import { Habitacion } from 'src/habitaciones/entities/habitacion.entity';
 import { Pago } from 'src/pago/entities/pago.entity';
@@ -41,10 +40,6 @@ export class Reserva {
   //habitacio-reserva
   @OneToOne(() => Habitacion, (habitacion) => habitacion.reserva)
   habitaciones: Habitacion;
-  //calendario-reserva
-  @ManyToOne(() => Calendario, (calendario) => calendario.reserva)
-  @JoinColumn({ name: 'id_calendario', referencedColumnName: 'id' })
-  calendario: Calendario;
   //pago-reserva
   @OneToOne(() => Pago, (pago) => pago.reserva)
   pago: Pago;

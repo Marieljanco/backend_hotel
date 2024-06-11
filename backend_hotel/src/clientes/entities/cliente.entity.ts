@@ -1,4 +1,3 @@
-import { Notificaciones } from 'src/notificaciones/entities/notificacion.entity';
 import { Reserva } from 'src/reservas/entities/reserva.entity';
 import { 
   Column, 
@@ -21,14 +20,12 @@ export class Cliente {
   @Column('varchar', { length: 100, nullable: false })
   apellido: string;
 
-  @Column()
+  @Column('int', { nullable: false })
   telefono: number;
   
   //reserva- clietne
   @OneToMany(() => Reserva, reserva => reserva.cliente)
   reserva: Reserva[];
   //notis- clietne
-  @OneToMany(() => Notificaciones, notificaciones => notificaciones.cliente)
-  notificaciones: Notificaciones[];
 
 }

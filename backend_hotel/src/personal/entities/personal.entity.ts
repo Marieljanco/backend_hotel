@@ -1,4 +1,3 @@
-import { Notificaciones } from 'src/notificaciones/entities/notificacion.entity';
 import { Reserva } from 'src/reservas/entities/reserva.entity';
 import { 
   Entity, 
@@ -10,7 +9,7 @@ import {
 @Entity('personal')
 export class Personal {
   @PrimaryGeneratedColumn()
-  ci: number;
+  id: number;
 
   @Column('varchar', { length: 100, nullable: false })
   nombre: string;
@@ -18,16 +17,19 @@ export class Personal {
   @Column('varchar', { length: 100, nullable: false })
   apellido: string;
 
-  @Column('varchar', { length: 20, nullable: false })
-  telefono: number;
+  @Column('varchar', { length: 100, nullable: false })
+  cargo: string;
 
-  @Column('varchar', { length: 255, nullable: false })
-  direccion: string;
+  @Column('varchar', { length: 100, nullable: false })
+  salario: string;
+
+  @Column('varchar', { length: 100, nullable: false })
+  fechaContratacion: string;
+
   //reserva-personal
   @OneToMany(() => Reserva, reserva => reserva.personal)
   reserva: Reserva[];
   //notis- perosnal
-  @OneToMany(() => Notificaciones, notificaciones => notificaciones.cliente)
-  notificaciones: Notificaciones[];
+
 }
 
