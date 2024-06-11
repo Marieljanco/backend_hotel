@@ -1,15 +1,18 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('servicios')
 export class Servicios {
+  @PrimaryGeneratedColumn()
+  id: number;
+
   @Column('varchar', { length: 100, nullable: false })
   nombre_del_servicio: string;
 
   @Column('varchar', { length: 100, nullable: false })
   descripcion: string;
 
-  @Column('varchar', { length: 100, nullable: false })
-  precio: string;
+  @Column('decimal', { precision: 10, scale: 2, nullable: false })
+  precio: number;
 
   @Column('varchar', { length: 15, nullable: false })
   disponibilidad: string;

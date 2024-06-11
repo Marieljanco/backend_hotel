@@ -2,32 +2,51 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { CreateServicioDto } from './dto/create-servicio.dto';
 import { UpdateServicioDto } from './dto/update-servicio.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Reposytory } from 'typeorm';
-import { Genero } from './entities/servicio.entity';
+import { Repository } from 'typeorm';
+import { Servicios } from './entities/servicio.entity';
 
 @Injectable()
 export class ServiciosService {
-  constructor(@InjectRepository(Servicio) private serviciosRepository: Repository<Genero>) {}
-  async create(createServicioDto: CreateServicioDto): Promise<Genero> {
-    const existe = await this.serviciosRepository.findOneBy({
-      descripcion: createServiciosDto.descripcion.trim(),
+  constructor(
+    @InjectRepository(Servicios)
+    private readonly serviciosRepository: Repository<Servicios>,
+  ) {}
+
+  async create(createServicioDto: CreateServicioDto): Promise<Servicios> {
+    const existe = await this.serviciosRepository.findOne({
+      where: { descripcion: createServicioDto.descripcion.trim() },
     });
-    return 'This action adds a new servicio';
+
+    if (existe) {
+      throw new ConflictException('El servicio ya existe');
+    }
+
+    const servicio = this.serviciosRepository.create(createServicioDto);
+    return this.serviciosRepository.save(servicio);
   }
 
-  findAll() {
-    return `This action returns all servicios`;
+  findAll(): Promise<Servicios[]> {
+    return this.serviciosRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} servicio`;
+  async findOne(id: number): Promise<Servicios> {
+    const servicio = await this.serviciosRepository.findOneBy({ id });
+
+    if (!servicio) {
+      throw new NotFoundException(`Servicio con ID ${id} no encontrado`);
+    }
+
+    return servicio;
   }
 
-  update(id: number, updateServicioDto: UpdateServicioDto) {
-    return `This action updates a #${id} servicio`;
+  async update(id: number, updateServicioDto: UpdateServicioDto): Promise<Servicios> {
+    const servicio = await this.findOne(id);
+    Object.assign(servicio, updateServicioDto);
+    return this.serviciosRepository.save(servicio);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} servicio`;
+  async remove(id: number):{
+    const servicio = await this.findOne(id);
+    return this.serviciosRepository.delete(servicio.id);
   }
 }
