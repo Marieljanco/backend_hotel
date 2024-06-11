@@ -1,29 +1,56 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Personal } from './entities/personal.entity';
 import { CreatePersonalDto } from './dto/create-personal.dto';
 import { UpdatePersonalDto } from './dto/update-personal.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Personal } from './entities/personal.entity';
-import { Repository } from 'typeorm';
 
 @Injectable()
 export class PersonalService {
-  create(createPersonalDto: CreatePersonalDto) {
-    return 'This action adds a new personal';
+  constructor(
+    @InjectRepository(Personal) private personalRepository: Repository<Personal>,
+  ) {}
+
+  async create(createPersonalDto: CreatePersonalDto): Promise<Personal> {
+    const existe = await this.personalRepository.findOne({
+      where: { 
+        nombre: createPersonalDto.nombre.trim(), 
+        apellido: createPersonalDto.apellido.trim() 
+      },
+    });
+
+    if (existe) {
+      throw new ConflictException('El personal ya existe');
+    }
+
+    const personal = this.personalRepository.create(createPersonalDto);
+    return this.personalRepository.save(personal);
   }
 
-  findAll() {
-    return `This action returns all personal`;
+  async findAll(): Promise<Personal[]> {
+    return this.personalRepository.find({ relations: ['reserva'] });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} personal`;
+  async findOne(id: number): Promise<Personal> {
+    const personal = await this.personalRepository.findOne({
+      where: { id },
+      relations: ['reserva'],
+    });
+
+    if (!personal) {
+      throw new NotFoundException(`El personal con ID ${id} no existe`);
+    }
+    return personal;
   }
 
-  update(id: number, updatePersonalDto: UpdatePersonalDto) {
-    return `This action updates a #${id} personal`;
+  async update(id: number, updatePersonalDto: UpdatePersonalDto): Promise<Personal> {
+    const personal = await this.findOne(id);
+    const personalUpdate = Object.assign(personal, updatePersonalDto);
+    return this.personalRepository.save(personalUpdate);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} personal`;
+  async remove(id: number): {
+    const personal = await this.findOne(id);
+    return this.personalRepository.delete(personal.id);
   }
 }

@@ -1,30 +1,59 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Reserva } from './entities/reserva.entity';
 import { CreateReservaDto } from './dto/create-reserva.dto';
 import { UpdateReservaDto } from './dto/update-reserva.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Reserva } from './entities/reserva.entity';
-import { Repository } from 'typeorm';
-
 
 @Injectable()
-export class ReservasService {
-  create(createReservaDto: CreateReservaDto) {
-    return 'This action adds a new reserva';
+export class ReservaService {
+  constructor(
+    @InjectRepository(Reserva)
+    private readonly reservaRepository: Repository<Reserva>,
+  ) {}
+
+  async create(createReservaDto: CreateReservaDto): Promise<Reserva> {
+    const existe = await this.reservaRepository.findOne({
+      where: { 
+        fecha_reserva: createReservaDto.fecha_reserva,
+        cliente: { id: createReservaDto.clienteId }
+      },
+    });
+
+    if (existe) {
+      throw new ConflictException('La reserva ya existe');
+    }
+
+    const reserva = this.reservaRepository.create(createReservaDto);
+    return this.reservaRepository.save(reserva);
   }
 
-  findAll() {
-    return `This action returns all reservas`;
+  async findAll(): Promise<Reserva[]> {
+    return this.reservaRepository.find({ 
+      relations: ['cliente', 'habitacion', 'pago', 'personal', 'servicio'] 
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} reserva`;
+  async findOne(id: number): Promise<Reserva> {
+    const reserva = await this.reservaRepository.findOne({
+      where: { id },
+      relations: ['cliente', 'habitacion', 'pago', 'personal', 'servicio'],
+    });
+
+    if (!reserva) {
+      throw new NotFoundException(`La reserva con ID ${id} no existe`);
+    }
+    return reserva;
   }
 
-  update(id: number, updateReservaDto: UpdateReservaDto) {
-    return `This action updates a #${id} reserva`;
+  async update(id: number, updateReservaDto: UpdateReservaDto): Promise<Reserva> {
+    const reserva = await this.findOne(id);
+    Object.assign(reserva, updateReservaDto);
+    return this.reservaRepository.save(reserva);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} reserva`;
+  async remove(id: number): {
+    const reserva = await this.findOne(id);
+    return this.reservaRepository.delete(reserva.id);
   }
 }

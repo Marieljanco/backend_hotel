@@ -33,7 +33,7 @@ export class HabitacionesService {
   async findOne(id: number): Promise<Habitacion> {
     const habitacion = await this.habitacionesRepository.findOneBy({ id });
     if (!habitacion) {
-      throw new NotFoundException(`La habitación ${id} no existe`);
+      throw new NotFoundException(La habitación ${id} no existe);
     }
     return habitacion;
   }
@@ -49,4 +49,3 @@ export class HabitacionesService {
     return this.habitacionesRepository.delete(habitacion.id);
   }
 }
-
