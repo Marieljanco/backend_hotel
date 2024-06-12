@@ -12,6 +12,7 @@ import { HabitacionesModule } from './habitaciones/habitaciones.module';
 import { ServiciosModule } from './servicios/servicios.module';
 
 import { PagoModule } from './pago/pago.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
 
 
 @Module({
@@ -35,6 +36,7 @@ import { PagoModule } from './pago/pago.module';
     HabitacionesModule,
     ServiciosModule,
     PagoModule,
+    UsuariosModule,
     // UsuariosModule,
     // AuthModule,
   ],

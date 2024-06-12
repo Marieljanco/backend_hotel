@@ -1,9 +1,9 @@
-import { Reserva } from 'src/reservas/entities/reserva.entity';
+import { Usuario } from 'src/usuarios/entities/usuario.entity';
 import { 
   Entity, 
   Column, 
   PrimaryGeneratedColumn, 
-  OneToMany 
+  OneToOne
 } from 'typeorm';
 
 @Entity('personal')
@@ -29,6 +29,8 @@ export class Personal {
   //reserva-personal
   // @OneToMany(() => Reserva, reserva => reserva.personal)
   // reserva: Reserva[];
-
+//personal usuario
+  @OneToOne(() => Usuario, usuario => usuario.personal)
+  usuario: Usuario;
 }
 

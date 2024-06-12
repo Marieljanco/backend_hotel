@@ -1,5 +1,10 @@
 import { Reserva } from 'src/reservas/entities/reserva.entity';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { 
+  Column, 
+  Entity, 
+  OneToOne, 
+  PrimaryGeneratedColumn 
+} from 'typeorm';
 
 @Entity('pagos')
 export class Pago {
@@ -17,9 +22,9 @@ export class Pago {
     default: 'efectivo'})
   metodo_de_pago: string;
 
-  //configurar para cliente
-  // @OneToOne(() => Reserva, reserva => reserva.pago)
-  // reserva: Reserva;
+  //pago reserva 1 a 1
+  @OneToOne(() => Reserva, reserva => reserva.pago)
+  reserva: Reserva;
 
 }
 

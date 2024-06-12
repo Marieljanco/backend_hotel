@@ -23,8 +23,8 @@ export class Cliente {
   @Column('int', { nullable: false })
   telefono: number;
   
-  //reserva- clietne
-  // @OneToMany(() => Reserva, reserva => reserva.cliente)
-  // reserva: Reserva[];
+  //reserva- cliente
+  @OneToMany(() => Reserva, reserva => reserva.cliente)
+  reserva: Reserva[];
 
 }
