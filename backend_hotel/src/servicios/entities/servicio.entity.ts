@@ -1,23 +1,8 @@
-<<<<<<< HEAD
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-
-@Entity('servicios')
-export class Servicios {
-=======
 import { Habitacion } from 'src/habitaciones/entities/habitacion.entity';
 import { Reserva } from 'src/reservas/entities/reserva.entity';
-import { 
-  Entity, 
-  Column, 
-  ManyToMany,
-  JoinTable,
-  PrimaryGeneratedColumn
-} from 'typeorm';
-
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm';
 @Entity('servicios')
 export class Servicios {
-
->>>>>>> de482662a88516915742c31558f30072dabbf59b
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -34,7 +19,7 @@ export class Servicios {
   @JoinTable(/*{ name: 'id_habitacion', referencedColumnName: 'id' }*/ )
   habitacion: Habitacion;
 
-  @ManyToMany(() => Reserva, reserva => reserva.servicio)
-  @JoinTable(/*{ name: 'id_habitacion', referencedColumnName: 'id' }*/ )
-  reserva: Reserva;
+  // @ManyToMany(() => Reserva, reserva => reserva.servicio)
+  // @JoinTable(/*{ name: 'id_habitacion', referencedColumnName: 'id' }*/ )
+  // reserva: Reserva;
 }

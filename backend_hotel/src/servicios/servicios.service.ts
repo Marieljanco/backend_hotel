@@ -45,7 +45,7 @@ export class ServiciosService {
     return this.serviciosRepository.save(servicio);
   }
 
-  async remove(id: number):{
+  async remove(id: number){
     const servicio = await this.findOne(id);
     return this.serviciosRepository.delete(servicio.id);
   }

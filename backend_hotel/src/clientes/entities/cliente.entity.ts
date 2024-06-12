@@ -24,8 +24,7 @@ export class Cliente {
   telefono: number;
   
   //reserva- clietne
-  @OneToMany(() => Reserva, reserva => reserva.cliente)
-  reserva: Reserva[];
-  //notis- clietne
+  // @OneToMany(() => Reserva, reserva => reserva.cliente)
+  // reserva: Reserva[];
 
 }

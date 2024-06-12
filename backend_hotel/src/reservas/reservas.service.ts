@@ -6,7 +6,7 @@ import { CreateReservaDto } from './dto/create-reserva.dto';
 import { UpdateReservaDto } from './dto/update-reserva.dto';
 
 @Injectable()
-export class ReservaService {
+export class ReservasService {
   constructor(
     @InjectRepository(Reserva)
     private readonly reservaRepository: Repository<Reserva>,
@@ -16,7 +16,7 @@ export class ReservaService {
     const existe = await this.reservaRepository.findOne({
       where: { 
         fecha_reserva: createReservaDto.fecha_reserva,
-        cliente: { id: createReservaDto.clienteId }
+        //cliente: { id: createReservaDto.idCliente }//VER
       },
     });
 
@@ -52,7 +52,7 @@ export class ReservaService {
     return this.reservaRepository.save(reserva);
   }
 
-  async remove(id: number): {
+  async remove(id: number) {
     const reserva = await this.findOne(id);
     return this.reservaRepository.delete(reserva.id);
   }

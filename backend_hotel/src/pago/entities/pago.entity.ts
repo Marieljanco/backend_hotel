@@ -18,8 +18,8 @@ export class Pago {
   metodo_de_pago: string;
 
   //configurar para cliente
-  @OneToOne(() => Reserva, reserva => reserva.pago)
-  reserva: Reserva;
+  // @OneToOne(() => Reserva, reserva => reserva.pago)
+  // reserva: Reserva;
 
 }
 

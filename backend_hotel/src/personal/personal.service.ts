@@ -23,8 +23,14 @@ export class PersonalService {
       throw new ConflictException('El personal ya existe');
     }
 
-    const personal = this.personalRepository.create(createPersonalDto);
-    return this.personalRepository.save(personal);
+    //const personal = this.personalRepository.create(createPersonalDto);
+    //return this.personalRepository.save(personal);
+    return this.personalRepository.save({
+      nombre: createPersonalDto.nombre.trim(),
+      apellido: createPersonalDto.apellido.trim(),
+      // album: { id: createCancionDto.idAlbum },
+      // genero: { id: createCancionDto.idGenero },
+    });
   }
 
   async findAll(): Promise<Personal[]> {
@@ -49,7 +55,7 @@ export class PersonalService {
     return this.personalRepository.save(personalUpdate);
   }
 
-  async remove(id: number): {
+  async remove(id: number) {
     const personal = await this.findOne(id);
     return this.personalRepository.delete(personal.id);
   }

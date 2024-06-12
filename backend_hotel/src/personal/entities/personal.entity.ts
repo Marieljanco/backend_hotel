@@ -20,16 +20,15 @@ export class Personal {
   @Column('varchar', { length: 100, nullable: false })
   cargo: string;
 
-  @Column('decimal', { length: 100, nullable: false })
+  @Column('decimal', { nullable: false })
   salario: number;
 
   @Column('varchar', { length: 100, nullable: false })
   fechaContratacion: string;
 
   //reserva-personal
-  @OneToMany(() => Reserva, reserva => reserva.personal)
-  reserva: Reserva[];
-  //notis- perosnal
+  // @OneToMany(() => Reserva, reserva => reserva.personal)
+  // reserva: Reserva[];
 
 }
 
