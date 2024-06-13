@@ -9,9 +9,24 @@ import { Repository } from 'typeorm';
 export class PagoService {
   constructor(@InjectRepository(Pago) private pagosRepository: Repository<Pago>) {}
 
+  // async create(createPagoDto: CreatePagoDto): Promise<Pago> {
+  //   const pago = await this.pagosRepository.create(createPagoDto);
+  //   return this.pagosRepository.save(pago);
+  // }
+
   async create(createPagoDto: CreatePagoDto): Promise<Pago> {
-    const pago = this.pagosRepository.create(createPagoDto);
-    return this.pagosRepository.save(pago);
+    const existe = await this.pagosRepository.findOneBy({
+      monto: createPagoDto.monto
+    });
+
+    if (existe) {
+      throw new ConflictException('El pago ya existe');
+    }
+
+    return this.pagosRepository.save({
+      monto: createPagoDto.monto,
+      //nacionalidad: createPagoDto.nacionalidad.trim(),
+    });
   }
 
   async findAll(): Promise<Pago[]> {

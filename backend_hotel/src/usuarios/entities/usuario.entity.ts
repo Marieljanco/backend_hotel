@@ -1,10 +1,13 @@
 import { Personal } from 'src/personal/entities/personal.entity';
 import { 
+  BeforeInsert,
+  BeforeUpdate,
   Column, 
   Entity, 
   OneToOne, 
   PrimaryGeneratedColumn 
 } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Entity('usuarios')
 export class Usuario {
@@ -23,6 +26,17 @@ export class Usuario {
   @Column('varchar', { length: 30, nullable: false })
   tipoUsuario: string;
 
-  @OneToOne(() => Personal, personal => personal.usuario)
+  @OneToOne(() => Personal, (personal) => personal.usuario)
   personal: Personal;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async hashPassword() {
+    const salt = await bcrypt.genSalt();
+    this.clave = await bcrypt.hash(this.clave, salt);
+  }
+
+  async validatePassword(plainPassword: string): Promise<boolean> {
+    return bcrypt.compare(plainPassword, this.clave);
+  }
 }

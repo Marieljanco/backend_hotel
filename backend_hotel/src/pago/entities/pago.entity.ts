@@ -1,6 +1,7 @@
 import { Reserva } from 'src/reservas/entities/reserva.entity';
 import { 
   Column, 
+  CreateDateColumn, 
   Entity, 
   OneToOne, 
   PrimaryGeneratedColumn 
@@ -14,7 +15,7 @@ export class Pago {
   @Column('decimal', { precision: 10, scale: 2 })
   monto: number;
 
-  @Column('date', { nullable: false })
+  @CreateDateColumn({ name: 'fecha_creacion' })
   fecha: Date;
 
   @Column({type: 'enum', 

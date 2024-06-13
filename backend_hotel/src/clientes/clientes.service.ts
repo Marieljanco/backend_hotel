@@ -19,11 +19,12 @@ export class ClientesService {
     });
 
     if (existe) {
-      throw new ConflictException('El intérprete ya existe');
+      throw new ConflictException('El cliente ya existe');
     }
 
     return this.clientesRepository.save({
       nombre: createClienteDto.nombre.trim(),
+      apellido: createClienteDto.apellido.trim(),
       telefono: createClienteDto.telefono,
     });
   }
@@ -31,7 +32,7 @@ export class ClientesService {
   async findAll(): Promise<Cliente[]> {
     return this.clientesRepository.find();
   }
-
+  //comentar 
   // async findAllByGenero(idGenero: number): Promise<Cliente[]> {
   //   return this.clientesRepository
   //     .createQueryBuilder('clientes')
@@ -43,22 +44,22 @@ export class ClientesService {
   // }
 
   async findOne(id: number): Promise<Cliente> {
-    const interprete = await this.clientesRepository.findOneBy({ id });
-    if (!interprete) {
-      throw new NotFoundException(`El intérprete ${id} no existe`);
+    const cliente = await this.clientesRepository.findOneBy({ id });
+    if (!cliente) {
+      throw new NotFoundException(`El cliente ${id} no existe`);
     }
-    return interprete;
+    return cliente;
   }
 
   async update(id: number, updateClienteDto: UpdateClienteDto): Promise<Cliente> {
-    const interprete = await this.findOne(id);
-    const interpreteUpdate = Object.assign(interprete, updateClienteDto);
-    return this.clientesRepository.save(interpreteUpdate);
+    const cliente = await this.findOne(id);
+    const clienteUpdate = Object.assign(cliente, updateClienteDto);
+    return this.clientesRepository.save(clienteUpdate);
   }
 
   async remove(id: number) {
-    const interprete = await this.findOne(id);
-    return this.clientesRepository.delete(interprete.id);
+    const cliente = await this.findOne(id);
+    return this.clientesRepository.delete(cliente.id);
   }
 }
 

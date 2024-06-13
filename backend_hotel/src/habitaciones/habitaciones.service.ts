@@ -32,6 +32,8 @@ export class HabitacionesService {
     return this.habitacionesRepository.find();
   }
 
+  //async findAllByGenero
+
   async findOne(id: number): Promise<Habitacion> {
     const habitacion = await this.habitacionesRepository.findOneBy({ id });
     if (!habitacion) {

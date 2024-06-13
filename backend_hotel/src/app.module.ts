@@ -13,6 +13,7 @@ import { ServiciosModule } from './servicios/servicios.module';
 
 import { PagoModule } from './pago/pago.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -37,6 +38,7 @@ import { UsuariosModule } from './usuarios/usuarios.module';
     ServiciosModule,
     PagoModule,
     UsuariosModule,
+    AuthModule,
     // UsuariosModule,
     // AuthModule,
   ],

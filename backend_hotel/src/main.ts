@@ -14,7 +14,7 @@ async function bootstrap() {
     .setTitle('API Rest SIS257hotel')
     .setDescription('Backend HOTEL')
     .setVersion('1.0')
-    .addTag('main')
+    .addTag('maincliente')
     .addBearerAuth({ type: 'http', scheme: 'bearer', bearerFormat: 'JWT', in: 'header' })
     .build();
   const document = SwaggerModule.createDocument(app, config);
