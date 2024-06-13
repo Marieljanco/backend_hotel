@@ -24,7 +24,7 @@ const location = useRoute()
     :style="'background-color: ' + (location.path != '/' ? 'black' : '')"
   >
     <div class="container">
-      <RouterLink to="/" class="navbar-brand"> SIS257 Music hotel Larana</RouterLink>
+      <RouterLink to="/" class="navbar-brand">HOTEL Larana</RouterLink>
 
       <RouterLink v-if="!authStore.token" to="/login" class="btn custom-btn d-lg-none ms-auto me-4"
         >Iniciar Sesión</RouterLink
@@ -55,10 +55,10 @@ const location = useRoute()
 
           <slot v-if="authStore.token">
             <li class="nav-item">
-              <RouterLink to="/interpretes" class="nav-link click-scroll">reservas</RouterLink>
+              <RouterLink to="/interpretes" class="nav-link click-scroll">Reservas</RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink to="/canciones" class="nav-link click-scroll">habitaciones</RouterLink>
+              <RouterLink to="/canciones" class="nav-link click-scroll">Habitaciones</RouterLink>
             </li>
             <li class="nav-item">
               <a class="nav-link click-scroll">Hola {{ authStore.user }}</a>

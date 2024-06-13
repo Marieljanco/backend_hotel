@@ -6,7 +6,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 col-12">
-            <h2 class="text-white mb-lg-0">Festava Live</h2>
+            <h2 class="text-white mb-lg-0">Larana HOTEL</h2>
           </div>
 
           <div class="col-lg-6 col-12 d-flex justify-content-lg-end align-items-center">
@@ -73,7 +73,7 @@
             </li>
 
             <li class="site-footer-link-item">
-              <a href="#" class="site-footer-link">Contact</a>
+              <a href="#" class="site-footer-link">Contacto</a>
             </li>
           </ul>
         </div>
