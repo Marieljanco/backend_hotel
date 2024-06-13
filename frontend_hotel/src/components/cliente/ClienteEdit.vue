@@ -14,20 +14,23 @@ const ci = ref('')
 const telefono = ref('')
 const id = router.currentRoute.value.params['id']
 
-async function editarInterprete() {
+async function editarCliente() {
   await http
     .patch(`${ENDPOINT}/${id}`, {
       nombre: nombre.value,
       apellido: apellido.value
-      ci: ci.value
-      telefono: telefono.value
+      // ci: ci.value
+      // telefono: telefono.value
     })
-    .then(() => router.push('/interpretes'))
+    .then(() => router.push('/clientes'))
 }
 
-async function getInterprete() {
+async function getCliente() {
   await http.get(`${ENDPOINT}/${id}`).then((response) => {
-    ;(nombre.value = response.data.nombre), (apellido.value = response.data.apellido), (ci.value = response.data.ci), (telefono.value = response.data.telefono)
+    ;(nombre.value = response.data.nombre),
+      (apellido.value = response.data.apellido),
+      (ci.value = response.data.ci),
+      (telefono.value = response.data.telefono)
   })
 }
 
@@ -57,7 +60,7 @@ onMounted(() => {
     </div>
 
     <div class="row">
-      <form @submit.prevent="editarInterprete">
+      <form @submit.prevent="editarCliente">
         <div class="form-floating mb-3">
           <input type="text" class="form-control" v-model="nombre" placeholder="Nombre" required />
           <label for="nombre">Nombre</label>
@@ -73,13 +76,7 @@ onMounted(() => {
           <label for="apellido">Apellido</label>
         </div>
         <div class="form-floating">
-          <input
-            type="text"
-            class="form-control"
-            v-model="ci"
-            placeholder="Ci"
-            required
-          />
+          <input type="text" class="form-control" v-model="ci" placeholder="Ci" required />
           <label for="ci">Ci</label>
         </div>
         <div class="form-floating">

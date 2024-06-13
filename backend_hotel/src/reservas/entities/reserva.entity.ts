@@ -40,9 +40,10 @@ export class Reserva {
 
   //pago reserva 1 a 1
   @OneToOne(() => Pago, pago => pago.reserva)
+  @JoinColumn()
   pago: Pago;
 
   @ManyToMany(() => Servicios, servicio => servicio.reservas)
-  @JoinTable()
+  @JoinTable({ name: 'reserva_servicio' })
   servicios: Servicios[];
 }
