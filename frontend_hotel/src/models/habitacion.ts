@@ -1,10 +1,10 @@
 import type { Reserva } from './reserva'
 
-export interface Cliente {
+export interface Habitacion {
   id: number
   tipoHabitacion: string
   estado_de_disponibilidad: string
   precio_por_hora: number
   
-  reservas: Reserva[]
+  //reservas: Reserva[]
 }

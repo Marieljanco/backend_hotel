@@ -20,23 +20,25 @@ const idCliente = ref<number>(0)
 
 const habitaciones = ref<Habitacion[]>([])
 const clientes = ref<Cliente[]>([])
-const albumes = ref<Album[]>([])
+//const albumes = ref<Album[]>([])
 
 async function crearReserva() {
   await http
     .post(ENDPOINT, {
       idHabitacion: idHabitacion.value,
-      //idAlbum: idAlbum.value,
+      idCliente: idCliente.value,
       fecha_reserva: reserva.value.fecha_reserva,
       fecha_entrada: reserva.value.fecha_entrada,
       fecha_salida: reserva.value.fecha_salida,
-      estado: reserva.value.fecha_salida
+      estado: reserva.value.estado //verr
     })
     .then(() => router.push('/reservas'))
 }
 
 async function obtenerClientes() {
-  clientes.value = await http.get('clientes/habitacion/' + idHabitacion.value).then((res) => res.data)
+  clientes.value = await http
+    .get('clientes/habitacion/' + idHabitacion.value)
+    .then((res) => res.data)
 }
 
 // async function obtenerAlbumes() {
@@ -65,17 +67,20 @@ function goBack() {
     </nav>
 
     <div class="row">
-      <h2>Crear Nueva Reservas</h2>
+      <h2>Crear Nueva Reserva</h2>
     </div>
 
     <div class="row">
       <form @submit.prevent="crearReserva">
         <div class="form-floating mb-2">
           <select class="form-select" v-model="idHabitacion" required @change="obtenerClientes">
-            <option value="" :disabled="true">Seleccione un elemento</option>
-            <option v-for="habitacion in habitaciones" :key="habitacion.id" :value="habitacion.id">
-              {{ habitacion.descripcion }}
-            </option>
+            <option value="" :disabled="true">Seleccione un tipo de habitacion</option>
+            <!-- <option v-for="habitacion in habitaciones" :key="habitacion.id" :value="habitacion.id">
+              {{ habitacion.tipoHabitacion }}
+            </option> -->
+            <option value="1">Suite presidencial</option>
+            <option value="2">Habitación de lujo</option>
+            <option value="3">Habitacion estandar</option>
           </select>
           <label for="habitacion">Habitaciones</label>
         </div>
@@ -105,7 +110,7 @@ function goBack() {
             placeholder="Fecha_reserva"
             required
           />
-          <label for="fecha_reserva">Fecha_reserva</label>
+          <label for="fecha_reserva">Fecha Reserva</label>
         </div>
         <div class="form-floating mb-2">
           <input
@@ -115,7 +120,7 @@ function goBack() {
             placeholder="Fecha_entrada"
             required
           />
-          <label for="fecha_entrada">Fecha_entrada</label>
+          <label for="fecha_entrada">Fecha Entrada</label>
         </div>
         <div class="form-floating mb-2">
           <input
@@ -125,7 +130,7 @@ function goBack() {
             placeholder="Fecha_salida"
             required
           />
-          <label for="fecha_salida">Fecha_salida</label>
+          <label for="fecha_salida">Fecha Salida</label>
         </div>
         <div class="form-floating mb-2">
           <input

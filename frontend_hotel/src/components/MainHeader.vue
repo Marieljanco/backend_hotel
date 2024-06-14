@@ -55,10 +55,10 @@ const location = useRoute()
 
           <slot v-if="authStore.token">
             <li class="nav-item">
-              <RouterLink to="/interpretes" class="nav-link click-scroll">Reservas</RouterLink>
+              <RouterLink to="/reservas" class="nav-link click-scroll">Reservas</RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink to="/canciones" class="nav-link click-scroll">Habitaciones</RouterLink>
+              <RouterLink to="/habitaciones" class="nav-link click-scroll">Habitaciones</RouterLink>
             </li>
             <li class="nav-item">
               <a class="nav-link click-scroll">Hola {{ authStore.user }}</a>

@@ -67,7 +67,7 @@ onMounted(() => {
             <td>{{ cliente.nombre }}</td>
             <td>{{ cliente.apellido }}</td>
             <td>{{ cliente.ci }}</td>
-            <td>{{ cliente.telefono }}</td>
+            <!-- <td>{{ cliente.telefono }}</td> -->
             <td>
               <button class="btn btn-link" @click="toEdit(cliente.id)">
                 <font-awesome-icon icon="fa-solid fa-edit" />

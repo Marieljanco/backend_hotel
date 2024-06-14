@@ -11,8 +11,10 @@ export class Cliente {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('varchar', { length: 15, nullable: false })
-  ci: string;
+  // @Column('varchar', { length: 15, nullable: false })
+  // ci: string;
+  @Column('int', { nullable: false })
+  ci: number;
 
   @Column('varchar', { length: 50, nullable: false })
   nombre: string;

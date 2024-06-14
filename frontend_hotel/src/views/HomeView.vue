@@ -51,9 +51,13 @@
     </div>
 
     <div class="video-wrap">
-  <img src="@/assets/video/imagenpresentacion.jpg"  class="custom-image" />
-</div>
+      <video autoplay="true" loop="true" muted="false" class="custom-video" poster="">
+        <source src="@/assets/video/pexels-2022395.mp4" type="video/mp4" />
+        <!-- reemplazar -->
 
+        Your browser does not support the video tag.
+      </video>
+    </div>
   </section>
 
   <section class="about-section section-padding" id="section_2">
@@ -287,7 +291,7 @@
             </ul>
 
             <a class="link-fx-1 color-contrast-higher mt-4" href="ticket.html">
-              <span>Buy Ticket</span>
+              <span>ticket</span>
               <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
                 <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="16" cy="16" r="15.5"></circle>

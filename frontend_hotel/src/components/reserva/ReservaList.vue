@@ -54,12 +54,12 @@ onMounted(() => {
         <thead>
           <tr>
             <th scope="col">N°</th>
-            <th scope="col">Habitacion</th>
             <th scope="col">Cliente</th>
-            <th scope="col">fecha_reserva</th>
-            <th scope="col">fecha_entrada</th>
-            <th scope="col">fecha_salida</th>
-            <th scope="col">estado</th>
+            <th scope="col">Habitacion</th>
+            <th scope="col">Fecha Reserva</th>
+            <th scope="col">Fecha Entrada</th>
+            <th scope="col">Fecha Salida</th>
+            <th scope="col">Estado</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
@@ -67,11 +67,11 @@ onMounted(() => {
           <tr v-for="(reserva, index) in reservas.values()" :key="reserva.id">
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ reserva.habitacion.tipoHabitacion }}</td>
-            <td>{{ reserva.habitacion.cliente.nombre }}</td>
+            <!-- <td>{{ reserva.habitacion.cliente.nombre }}</td> -->
             <td>{{ reserva.fecha_reserva }}</td>
             <td>{{ reserva.fecha_entrada }}</td>
             <td>{{ reserva.fecha_salida }}</td>
-            <td><a :href="reserva.url" target="_blank">Ver</a></td>
+            <!-- <td><a :href="reserva.url" target="_blank">Ver</a></td> -->
             <td>
               <button class="btn btn-link" @click="toEdit(reserva.id)">
                 <font-awesome-icon icon="fa-solid fa-edit" />

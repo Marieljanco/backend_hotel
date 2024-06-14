@@ -8,31 +8,25 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class HabitacionesService {
   constructor(
-    @InjectRepository(Habitacion) private habitacionesRepository: Repository<Habitacion>,
+    @InjectRepository(Habitacion)
+    private habitacionesRepository: Repository<Habitacion>,
   ) {}
 
   async create(createHabitacionDto: CreateHabitacionDto): Promise<Habitacion> {
-    const existe = await this.habitacionesRepository.findOneBy({
-      tipoHabitacion: createHabitacionDto.tipoHabitacion.trim(),
-      //interprete: { id: createHabitacionDto.idInterprete }, //corregir ver relacion
-      //numero: createHabitacionDto.numero,
-    });
+    const { tipoHabitacion } = createHabitacionDto;
+    const existe = await this.habitacionesRepository.findOne({ where: { tipoHabitacion } });
 
     if (existe) {
       throw new ConflictException('La habitación ya existe');
     }
 
-    return this.habitacionesRepository.save({
-      tipoHabitacion: createHabitacionDto.tipoHabitacion.trim(),
-      //numero: createHabitacionDto.numero,
-    });
+    const nuevaHabitacion = this.habitacionesRepository.create(createHabitacionDto);
+    return this.habitacionesRepository.save(nuevaHabitacion);
   }
 
   async findAll(): Promise<Habitacion[]> {
     return this.habitacionesRepository.find();
   }
-
-  //async findAllByGenero
 
   async findOne(id: number): Promise<Habitacion> {
     const habitacion = await this.habitacionesRepository.findOneBy({ id });
@@ -43,13 +37,13 @@ export class HabitacionesService {
   }
 
   async update(id: number, updateHabitacionDto: UpdateHabitacionDto): Promise<Habitacion> {
-    const habitacion = await this.findOne(id);
-    const habitacionUpdate = Object.assign(habitacion, updateHabitacionDto);
-    return this.habitacionesRepository.save(habitacionUpdate);
+    await this.findOne(id);
+    await this.habitacionesRepository.update(id, updateHabitacionDto);
+    return this.findOne(id); // Return updated habitacion
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<void> {
     const habitacion = await this.findOne(id);
-    return this.habitacionesRepository.delete(habitacion.id);
+    await this.habitacionesRepository.remove(habitacion);
   }
 }
