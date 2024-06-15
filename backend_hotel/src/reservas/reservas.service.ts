@@ -30,14 +30,14 @@ export class ReservasService {
 
   async findAll(): Promise<Reserva[]> {
     return this.reservaRepository.find({ 
-      relations: ['cliente', 'habitacion', 'pago', 'personal', 'servicio'] 
+      relations: ['cliente', 'habitacion', 'pago', 'servicio'] 
     });
   }
 
   async findOne(id: number): Promise<Reserva> {
     const reserva = await this.reservaRepository.findOne({
       where: { id },
-      relations: ['cliente', 'habitacion', 'pago', 'personal', 'servicio'],
+      relations: ['cliente', 'habitacion', 'pago', 'servicio'],
     });
 
     if (!reserva) {

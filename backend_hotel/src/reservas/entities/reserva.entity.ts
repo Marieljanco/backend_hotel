@@ -11,6 +11,7 @@ import {
   OneToOne,
   ManyToMany,
   JoinTable,
+  CreateDateColumn,
 } from 'typeorm';
 
 @Entity('reservas')
@@ -18,13 +19,13 @@ export class Reserva {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('date')
+  @CreateDateColumn({ name: 'fecha_reservacion' })
   fecha_reserva: Date;
 
-  @Column('date')
+  @CreateDateColumn({ name: 'fecha_entradacion' })
   fecha_entrada: Date;
 
-  @Column('date')
+  @CreateDateColumn({ name: 'fecha_salidan' })
   fecha_salida: Date;
 
   @Column('varchar', { length: 100 })
