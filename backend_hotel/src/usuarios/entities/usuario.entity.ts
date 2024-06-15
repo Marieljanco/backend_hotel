@@ -1,4 +1,4 @@
-import { Personal } from 'src/personal/entities/personal.entity';
+
 import { 
   BeforeInsert,
   BeforeUpdate,
@@ -25,10 +25,7 @@ export class Usuario {
 
   @Column('varchar', { length: 30, nullable: false })
   tipoUsuario: string;
-
-  @OneToOne(() => Personal, (personal) => personal.usuario)
-  personal: Personal;
-
+  
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword() {

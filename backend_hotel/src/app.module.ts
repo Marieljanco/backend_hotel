@@ -5,8 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 // import { AuthModule } from './auth/auth.module';
 import { ClientesModule } from './clientes/clientes.module';
-//import { Cliente } from './clientes/entities/cliente.entity';
-import { PersonalModule } from './personal/personal.module';
+//import { Cliente } from './clientes/entities/cliente.entity';n
 import { ReservasModule } from './reservas/reservas.module';
 import { HabitacionesModule } from './habitaciones/habitaciones.module';
 import { ServiciosModule } from './servicios/servicios.module';
@@ -31,7 +30,6 @@ import { AuthModule } from './auth/auth.module';
       autoLoadEntities: true,
     }),
     ClientesModule,
-    PersonalModule,
     ReservasModule,
     HabitacionesModule,
     ServiciosModule,

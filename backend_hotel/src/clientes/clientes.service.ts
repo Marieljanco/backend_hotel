@@ -7,12 +7,11 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class ClientesService {
-  constructor(
-    @InjectRepository(Cliente) private clientesRepository: Repository<Cliente>,
-  ) {}
-  
+  constructor(@InjectRepository(Cliente) private clientesRepository: Repository<Cliente>) {}
+
   async create(createClienteDto: CreateClienteDto): Promise<Cliente> {
     const existe = await this.clientesRepository.findOneBy({
+      ci: createClienteDto.ci,
       nombre: createClienteDto.nombre.trim(),
       apellido: createClienteDto.apellido.trim(),
       telefono: createClienteDto.telefono,
@@ -23,6 +22,7 @@ export class ClientesService {
     }
 
     return this.clientesRepository.save({
+      ci: createClienteDto.ci,
       nombre: createClienteDto.nombre.trim(),
       apellido: createClienteDto.apellido.trim(),
       telefono: createClienteDto.telefono,
@@ -32,34 +32,29 @@ export class ClientesService {
   async findAll(): Promise<Cliente[]> {
     return this.clientesRepository.find();
   }
-  //comentar 
-  // async findAllByGenero(idGenero: number): Promise<Cliente[]> {
-  //   return this.clientesRepository
-  //     .createQueryBuilder('clientes')
-  //     .innerJoin('clientes.albumes', 'albumes')
-  //     .innerJoin('albumes.canciones', 'canciones')
-  //     .innerJoin('canciones.genero', 'genero')
-  //     .where('genero.id = :idGenero', { idGenero })
-  //     .getMany();
-  // }
 
   async findOne(id: number): Promise<Cliente> {
     const cliente = await this.clientesRepository.findOneBy({ id });
     if (!cliente) {
-      throw new NotFoundException(`El cliente ${id} no existe`);
+      throw new NotFoundException(`El cliente con id ${id} no existe`);
     }
     return cliente;
   }
 
   async update(id: number, updateClienteDto: UpdateClienteDto): Promise<Cliente> {
-    const cliente = await this.findOne(id);
+    const cliente = await this.clientesRepository.findOneBy({ id });
+    if (!cliente) {
+      throw new NotFoundException(`No existe el cliente con id ${id}`);
+    }
     const clienteUpdate = Object.assign(cliente, updateClienteDto);
     return this.clientesRepository.save(clienteUpdate);
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<void> {
     const cliente = await this.findOne(id);
-    return this.clientesRepository.delete(cliente.id);
+    const result = await this.clientesRepository.delete(cliente.id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`No se pudo eliminar el cliente con id ${id}`);
+    }
   }
 }
-

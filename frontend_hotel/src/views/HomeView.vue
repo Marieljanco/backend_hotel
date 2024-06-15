@@ -52,7 +52,7 @@
 
     <div class="video-wrap">
       <video autoplay="true" loop="true" muted="false" class="custom-video" poster="">
-        <source src="@/assets/video/pexels-2022395.mp4" type="video/mp4" />
+        <source src="@/assets/video/videohotel.mp4" type="video/mp4" />
         <!-- reemplazar -->
 
         Your browser does not support the video tag.
