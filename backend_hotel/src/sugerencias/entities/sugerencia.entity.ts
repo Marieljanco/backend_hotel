@@ -3,6 +3,7 @@ import {
   Column, 
   CreateDateColumn, 
   Entity, 
+  ManyToOne, 
   OneToOne, 
   PrimaryGeneratedColumn 
 } from 'typeorm';
@@ -19,7 +20,7 @@ export class Sugerencia {
   fecha: Date;
 
  
-  @OneToOne(() => Cliente, cliente => cliente.pago)
+  @ManyToOne(() => Cliente, cliente => cliente.sugerencia)
   cliente: Cliente;
 
 }

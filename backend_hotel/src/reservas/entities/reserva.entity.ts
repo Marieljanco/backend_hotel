@@ -48,3 +48,5 @@ export class Reserva {
   @JoinTable({ name: 'reserva_servicio' })
   servicios: Servicios[];
 }
+
+export { Cliente };

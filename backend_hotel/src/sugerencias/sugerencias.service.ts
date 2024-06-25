@@ -6,7 +6,7 @@ import { Sugerencia } from './entities/sugerencia.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class SugerenciaService {
+export class SugerenciasService {
   constructor(@InjectRepository(Sugerencia) private sugerenciasRepository: Repository<Sugerencia>) {}
 
   async create(createSugerenciaDto: CreateSugerenciaDto): Promise<Sugerencia> {
