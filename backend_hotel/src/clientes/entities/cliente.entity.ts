@@ -1,4 +1,5 @@
 import { Reserva } from 'src/reservas/entities/reserva.entity';
+import { Sugerencia } from 'src/sugerencias/entities/sugerencia.entity';
 import { 
   Column, 
   Entity, 
@@ -28,5 +29,8 @@ export class Cliente {
   //reserva- cliente
   @OneToMany(() => Reserva, reserva => reserva.cliente)
   reserva: Reserva[];
+
+  @OneToMany(() => Sugerencia, sugerencia => sugerencia.cliente)
+  sugerencia: Sugerencia[];
 
 }

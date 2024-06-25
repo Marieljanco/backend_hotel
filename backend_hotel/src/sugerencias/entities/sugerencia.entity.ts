@@ -1,4 +1,4 @@
-import { Reserva } from 'src/reservas/entities/reserva.entity';
+import { Cliente } from 'src/reservas/entities/reserva.entity';
 import { 
   Column, 
   CreateDateColumn, 
@@ -18,9 +18,9 @@ export class Sugerencia {
   @CreateDateColumn({ name: 'fecha_creacion' })
   fecha: Date;
 
-  //pago reserva 1 a 1
-  @OneToOne(() => Reserva, reserva => reserva.pago)
-  reserva: Reserva;
+ 
+  @OneToOne(() => Cliente, cliente => cliente.pago)
+  cliente: Cliente;
 
 }
 
