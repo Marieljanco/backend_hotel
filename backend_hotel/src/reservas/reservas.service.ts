@@ -15,19 +15,19 @@ export class ReservasService {
   async create(createReservaDto: CreateReservaDto): Promise<Reserva> {
     const existe = await this.reservaRepository.findOne({
       where: { 
-        fecha_reserva: createReservaDto.fecha_reserva,
-        //cliente: { id: createReservaDto.idCliente }//VER
+        fecha_entrada: createReservaDto.fecha_entrada,
+        fecha_salida: createReservaDto.fecha_salida,
+        cliente: { id: createReservaDto.idCliente } // Verifica si el cliente ya tiene una reserva en la fecha dada
       },
     });
 
     if (existe) {
-      throw new ConflictException('La reserva ya existe');
+      throw new ConflictException('El cliente ya tiene una reserva para esta fecha');
     }
 
     const reserva = this.reservaRepository.create(createReservaDto);
     return this.reservaRepository.save(reserva);
   }
-
   async findAll(): Promise<Reserva[]> {
     return this.reservaRepository.find({ 
       relations: ['cliente', 'habitacion', 'pago', 'servicio'] 
@@ -37,7 +37,7 @@ export class ReservasService {
   async findOne(id: number): Promise<Reserva> {
     const reserva = await this.reservaRepository.findOne({
       where: { id },
-      relations: ['cliente', 'habitacion', 'pago', 'servicio'],
+      relations: ['cliente', 'habitacion', 'pago', 'servicio']
     });
 
     if (!reserva) {

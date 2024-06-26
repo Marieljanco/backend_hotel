@@ -4,10 +4,12 @@ import {
   BeforeUpdate,
   Column, 
   Entity, 
+  OneToMany, 
   OneToOne, 
   PrimaryGeneratedColumn 
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Reserva } from 'src/reservas/entities/reserva.entity';
 
 @Entity('usuarios')
 export class Usuario {
@@ -26,6 +28,9 @@ export class Usuario {
   @Column('varchar', { length: 30, nullable: false })
   tipoUsuario: string;
   
+  @OneToMany(() => Reserva, reserva => reserva.usuarios)
+  reservas: Reserva[];
+
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword() {

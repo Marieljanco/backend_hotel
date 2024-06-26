@@ -1,7 +1,9 @@
+import { IsDate } from 'class-validator';
 import { Cliente } from 'src/clientes/entities/cliente.entity';
 import { Habitacion } from 'src/habitaciones/entities/habitacion.entity';
 import { Pago } from 'src/pago/entities/pago.entity';
 import { Servicios } from 'src/servicios/entities/servicio.entity';
+import { Usuario } from 'src/usuarios/entities/usuario.entity';
 import {
   Column,
   Entity,
@@ -19,17 +21,21 @@ export class Reserva {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @CreateDateColumn({ name: 'fecha_reservacion' })
+  @CreateDateColumn({ name: 'fecha_reserva' })
   fecha_reserva: Date;
 
-  @CreateDateColumn({ name: 'fecha_entradacion' })
+  @Column('date', { name: 'fecha_entrada' })
   fecha_entrada: Date;
 
-  @CreateDateColumn({ name: 'fecha_salidan' })
+  @Column( 'date', { name: 'fecha_salida' })
   fecha_salida: Date;
 
   @Column('varchar', { length: 100 })
   estado: string;
+  // @Column('varchar', { length: 100 })
+  // @IsNotEmpty()
+  // @IsIn(['activo', 'cancelado', 'pendiente']) // Ejemplo de validación de estado permitido
+  // estado: string;
 
   @ManyToOne(() => Cliente, cliente => cliente.reserva)
   @JoinColumn({ name: 'id_cliente', referencedColumnName: 'id' })
@@ -45,8 +51,15 @@ export class Reserva {
   pago: Pago;
 
   @ManyToMany(() => Servicios, servicio => servicio.reservas)
-  @JoinTable({ name: 'reserva_servicio' })
+  @JoinTable({
+    name: 'reserva_servicio',
+    joinColumn: { name: 'reserva_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'servicio_id', referencedColumnName: 'id' }
+  })
   servicios: Servicios[];
+
+  @ManyToOne(() => Usuario, usuario => usuario.reservas)
+  @JoinColumn({ name: 'id_usuario', referencedColumnName: 'id' })
+  usuarios: Usuario;
 }
 
-export { Cliente };

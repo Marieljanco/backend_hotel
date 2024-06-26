@@ -24,8 +24,7 @@ export class Servicios {
   // @ManyToMany(() => Habitacion, habitacion => habitacion.servicio)
   // @JoinTable(/*{ name: 'id_habitacion', referencedColumnName: 'id' }*/ )
   // habitacion: Habitacion;
-//reserva servicio m:n
+
   @ManyToMany(() => Reserva, reserva => reserva.servicios)
-  @JoinTable()
   reservas: Reserva[];
 }

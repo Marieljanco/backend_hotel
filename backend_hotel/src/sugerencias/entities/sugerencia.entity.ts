@@ -1,4 +1,4 @@
-import { Cliente } from 'src/reservas/entities/reserva.entity';
+import { Cliente } from 'src/clientes/entities/cliente.entity';
 import { 
   Column, 
   CreateDateColumn, 
