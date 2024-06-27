@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsDate,
   IsDateString,
   IsDefined,
   IsNotEmpty,
@@ -11,15 +10,14 @@ import {
 } from 'class-validator';
 
 export class CreateReservaDto {
-
   @ApiProperty({ example: '2024-04-13' })
   @IsNotEmpty({ message: 'El campo fecha_entrada no debe ser vacío' })
-  @IsDateString({},{ message: 'El campo fecha_entrada debe ser de tipo fecha' })
+  @IsDateString({}, { message: 'El campo fecha_entrada debe ser de tipo fecha' })
   readonly fecha_entrada: Date;
 
   @ApiProperty({ example: '2024-04-13' })
   @IsNotEmpty({ message: 'El campo fecha_salida no debe ser vacío' })
-  @IsDateString({},{ message: 'El campo fecha_salida debe ser de tipo fecha' })
+  @IsDateString({}, { message: 'El campo fecha_salida debe ser de tipo fecha' })
   readonly fecha_salida: Date;
 
   @ApiProperty()

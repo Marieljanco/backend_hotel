@@ -102,7 +102,7 @@ function goBack() {
           </select>
           <label for="album">Álbum</label>
         </div> -->
-        <div class="form-floating mb-2">
+        <!-- <div class="form-floating mb-2">
           <input
             type="text"
             class="form-control"
@@ -111,7 +111,7 @@ function goBack() {
             required
           />
           <label for="fecha_reserva">Fecha Reserva</label>
-        </div>
+        </div> -->
         <div class="form-floating mb-2">
           <input
             type="text"

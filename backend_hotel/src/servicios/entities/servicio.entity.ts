@@ -1,14 +1,8 @@
 import { Reserva } from 'src/reservas/entities/reserva.entity';
-import { 
-  Entity, 
-  Column, 
-  PrimaryGeneratedColumn, 
-  ManyToMany, 
-  JoinTable 
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 
 @Entity('servicios')
-export class Servicios {
+export class Servicio {
   @PrimaryGeneratedColumn()
   id: number;
 

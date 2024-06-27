@@ -7,11 +7,13 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class SugerenciasService {
-  constructor(@InjectRepository(Sugerencia) private sugerenciasRepository: Repository<Sugerencia>) {}
+  constructor(
+    @InjectRepository(Sugerencia) private sugerenciasRepository: Repository<Sugerencia>,
+  ) {}
 
   async create(createSugerenciaDto: CreateSugerenciaDto): Promise<Sugerencia> {
     const existe = await this.sugerenciasRepository.findOneBy({
-      comentario: createSugerenciaDto.comentario
+      comentario: createSugerenciaDto.comentario,
     });
 
     if (existe) {
@@ -20,7 +22,6 @@ export class SugerenciasService {
 
     return this.sugerenciasRepository.save({
       comentario: createSugerenciaDto.comentario,
-      fecha: createSugerenciaDto.fecha,
     });
   }
 

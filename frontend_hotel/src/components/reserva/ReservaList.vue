@@ -59,7 +59,7 @@ onMounted(() => {
             <th scope="col">Fecha Reserva</th>
             <th scope="col">Fecha Entrada</th>
             <th scope="col">Fecha Salida</th>
-            <th scope="col">Estado</th>
+            <!-- <th scope="col">Estado</th> -->
             <th scope="col">Acciones</th>
           </tr>
         </thead>
@@ -68,7 +68,7 @@ onMounted(() => {
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ reserva.habitacion.tipoHabitacion }}</td>
             <!-- <td>{{ reserva.habitacion.cliente.nombre }}</td> -->
-            <td>{{ reserva.fecha_reserva }}</td>
+            <!-- <td>{{ reserva.fecha_reserva }}</td> -->
             <td>{{ reserva.fecha_entrada }}</td>
             <td>{{ reserva.fecha_salida }}</td>
             <!-- <td><a :href="reserva.url" target="_blank">Ver</a></td> -->

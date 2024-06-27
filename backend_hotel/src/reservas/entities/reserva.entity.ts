@@ -1,8 +1,7 @@
-import { IsDate } from 'class-validator';
 import { Cliente } from 'src/clientes/entities/cliente.entity';
 import { Habitacion } from 'src/habitaciones/entities/habitacion.entity';
 import { Pago } from 'src/pago/entities/pago.entity';
-import { Servicios } from 'src/servicios/entities/servicio.entity';
+import { Servicio } from 'src/servicios/entities/servicio.entity';
 import { Usuario } from 'src/usuarios/entities/usuario.entity';
 import {
   Column,
@@ -27,7 +26,7 @@ export class Reserva {
   @Column('date', { name: 'fecha_entrada' })
   fecha_entrada: Date;
 
-  @Column( 'date', { name: 'fecha_salida' })
+  @Column('date', { name: 'fecha_salida' })
   fecha_salida: Date;
 
   @Column('varchar', { length: 100 })
@@ -50,16 +49,15 @@ export class Reserva {
   @JoinColumn()
   pago: Pago;
 
-  @ManyToMany(() => Servicios, servicio => servicio.reservas)
+  @ManyToMany(() => Servicio, servicio => servicio.reservas)
   @JoinTable({
     name: 'reserva_servicio',
     joinColumn: { name: 'reserva_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'servicio_id', referencedColumnName: 'id' }
+    inverseJoinColumn: { name: 'servicio_id', referencedColumnName: 'id' },
   })
-  servicios: Servicios[];
+  servicios: Servicio[];
 
   @ManyToOne(() => Usuario, usuario => usuario.reservas)
   @JoinColumn({ name: 'id_usuario', referencedColumnName: 'id' })
   usuarios: Usuario;
 }
-
