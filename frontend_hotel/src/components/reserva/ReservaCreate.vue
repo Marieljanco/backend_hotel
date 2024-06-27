@@ -21,7 +21,7 @@ const clientes = ref<Cliente[]>([])
 
 async function crearReserva() {
   try {
-    await http.post(ENDPOINT, {
+    await http.post(ENDPOINT + '/reservas', {
       idHabitacion: idHabitacion.value,
       idCliente: idCliente.value,
       fecha_entrada: reserva.value.fecha_entrada,
@@ -34,25 +34,12 @@ async function crearReserva() {
   }
 }
 
-// async function obtenerClientes() {
-//   try {
-//     const response = await http.get(`clientes/habitacion/${idHabitacion.value}`)
-//     clientes.value = response.data
-//   } catch (error) {
-//     console.error('Error al obtener los clientes:', error)
-//   }
-// }
 async function obtenerClientes() {
-  if (idHabitacion.value > 0) {
-    try {
-      const response = await http.get(`clientes/habitacion/${idHabitacion.value}`)
-      clientes.value = response.data
-      console.log('Clientes obtenidos:', clientes.value) // Depuración
-    } catch (error) {
-      console.error('Error al obtener los clientes:', error)
-    }
-  } else {
-    clientes.value = []
+  try {
+    const response = await http.get('clientes')
+    clientes.value = response.data
+  } catch (error) {
+    console.error('Error al obtener los clientes:', error)
   }
 }
 
@@ -97,24 +84,16 @@ function goBack() {
           </select>
           <label for="habitacion">Habitaciones</label>
         </div>
+        <!-- Selector de Clientes -->
         <div class="form-floating mb-2">
           <select class="form-select" v-model="idCliente" required>
             <option value="" disabled>Seleccione un cliente</option>
             <option v-for="cliente in clientes" :key="cliente.id" :value="cliente.id">
-              {{ cliente.nombre }}
+              {{ cliente.nombre + ' ' + cliente.apellido }}
             </option>
           </select>
           <label for="cliente">Clientes</label>
         </div>
-        <!-- <select class="form-select" v-model="idCliente" required>
-          <option value="" disabled>Seleccione un cliente</option>
-          <option v-for="cliente in clientes" :key="cliente.id" :value="cliente.id">
-            {{ cliente.nombre }}
-          </option>
-          <option value="-1">Ingresar manualmente...</option>
-        </select>
-        <label for="cliente">Clientes</label> -->
-
         <div class="form-floating mb-2">
           <input
             type="date"

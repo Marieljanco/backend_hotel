@@ -1,6 +1,5 @@
 import Axios, { type AxiosInstance } from 'axios'
 import { useAuthStore } from '@/stores/index'
-//import { useAuthStore } from '@/stores/index'
 
 const axios: AxiosInstance = Axios.create({
   baseURL: import.meta.env.VITE_BASE_URL_ENDPOINT

@@ -51,7 +51,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- Tu código HTML para la tabla y el resto de la interfaz -->
   <div class="container">
     <!-- Encabezado y navegación -->
     <!-- Resto del contenido de tu componente -->

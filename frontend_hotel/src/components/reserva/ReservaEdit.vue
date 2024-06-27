@@ -29,8 +29,8 @@ async function editarReserva() {
 
 async function getReserva() {
   await http.get(`${ENDPOINT}/${id}`).then((response) => {
-    ;(fecha_salida.value = response.data.fecha_salida), 
-    (fecha_entrada.value = response.data.fecha_entrada)
+    ;(fecha_salida.value = response.data.fecha_salida),
+      (fecha_entrada.value = response.data.fecha_entrada)
   })
 }
 
@@ -61,10 +61,9 @@ onMounted(() => {
 
     <div class="row">
       <form @submit.prevent="editarReserva">
-        
         <div class="form-floating">
           <input
-            type="text"
+            type="date"
             class="form-control"
             v-model="fecha_entrada"
             placeholder="Fecha Entrada"
@@ -74,7 +73,7 @@ onMounted(() => {
         </div>
         <div class="form-floating">
           <input
-            type="text"
+            type="date"
             class="form-control"
             v-model="fecha_salida"
             placeholder="Fecha salida"
