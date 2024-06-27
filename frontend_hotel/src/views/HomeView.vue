@@ -320,7 +320,7 @@
               id="nav-tab"
               role="tablist"
             >
-              <button
+              <!-- <button
                 class="nav-link active"
                 id="nav-ContactForm-tab"
                 data-bs-toggle="tab"
@@ -329,8 +329,8 @@
                 role="tab"
                 aria-controls="nav-ContactForm"
                 aria-selected="false"
-              >
-                <h5>Formulario de Contacto </h5>
+              > -->
+                <!-- <h5>Formulario de Contacto </h5>
               </button>
 
               <button
@@ -342,9 +342,9 @@
                 role="tab"
                 aria-controls="nav-ContactMap"
                 aria-selected="false"
-              >
-                <h5>Google Maps</h5>
-              </button>
+              > -->
+                <!-- <h5>Google Maps</h5>
+              </button> -->
             </div>
           </nav>
 
