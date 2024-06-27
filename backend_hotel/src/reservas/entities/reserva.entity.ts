@@ -29,8 +29,8 @@ export class Reserva {
   @Column('date', { name: 'fecha_salida' })
   fecha_salida: Date;
 
-  @Column('varchar', { length: 100 })
-  estado: string;
+  // @Column('varchar', { length: 100 })
+  // estado: string;
   // @Column('varchar', { length: 100 })
   // @IsNotEmpty()
   // @IsIn(['activo', 'cancelado', 'pendiente']) // Ejemplo de validación de estado permitido

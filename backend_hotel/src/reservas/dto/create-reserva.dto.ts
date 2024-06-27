@@ -20,12 +20,12 @@ export class CreateReservaDto {
   @IsDateString({}, { message: 'El campo fecha_salida debe ser de tipo fecha' })
   readonly fecha_salida: Date;
 
-  @ApiProperty()
-  @IsNotEmpty({ message: 'El campo estado no debe ser vacío' })
-  @IsString({ message: 'El campo estado debe ser de tipo cadena' })
-  @MaxLength(30, { message: 'El campo estado no debe ser mayor a 50 caracteres' })
-  @MinLength(2, { message: 'El campo estado no debe ser menor a 2 caracteres' })
-  readonly estado: string;
+  // @ApiProperty()
+  // @IsNotEmpty({ message: 'El campo estado no debe ser vacío' })
+  // @IsString({ message: 'El campo estado debe ser de tipo cadena' })
+  // @MaxLength(30, { message: 'El campo estado no debe ser mayor a 50 caracteres' })
+  // @MinLength(2, { message: 'El campo estado no debe ser menor a 2 caracteres' })
+  // readonly estado: string;
 
   @ApiProperty()
   @IsDefined({ message: 'El campo idCliente debe estar definido' })

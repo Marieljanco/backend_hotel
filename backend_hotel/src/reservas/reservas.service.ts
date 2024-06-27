@@ -15,9 +15,10 @@ export class ReservasService {
   async create(createReservaDto: CreateReservaDto): Promise<Reserva> {
     const existe = await this.reservaRepository.findOne({
       where: {
+        cliente: { id: createReservaDto.idCliente },
+        habitacion: { id: createReservaDto.idHabitacion }, // Verifica si el cliente ya tiene una reserva en la fecha dada
         fecha_entrada: createReservaDto.fecha_entrada,
         fecha_salida: createReservaDto.fecha_salida,
-        cliente: { id: createReservaDto.idCliente }, // Verifica si el cliente ya tiene una reserva en la fecha dada
       },
     });
 
@@ -30,14 +31,14 @@ export class ReservasService {
   }
   async findAll(): Promise<Reserva[]> {
     return this.reservaRepository.find({
-      relations: ['cliente', 'habitacion', 'pago', 'servicios'],
+      relations: ['cliente', 'habitacion', 'pago', 'servicios', 'usuarios'],
     });
   }
 
   async findOne(id: number): Promise<Reserva> {
     const reserva = await this.reservaRepository.findOne({
       where: { id },
-      relations: ['cliente', 'habitacion', 'pago', 'servicios'],
+      relations: ['cliente', 'habitacion', 'pago', 'servicios', 'usuarios'],
     });
 
     if (!reserva) {
@@ -52,10 +53,6 @@ export class ReservasService {
     return this.reservaRepository.save(reserva);
   }
 
-  // async remove(id: number) {
-  //   const reserva = await this.findOne(id);
-  //   return this.reservaRepository.delete(reserva.id);
-  // }
   async remove(id: number): Promise<void> {
     const result = await this.reservaRepository.delete(id);
     if (result.affected === 0) {

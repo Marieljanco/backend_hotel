@@ -13,14 +13,15 @@ const props = defineProps<{
 }>()
 
 const ENDPOINT = props.ENDPOINT_API ?? ''
-const fecha_reserva = ref('')
+
 const fecha_entrada = ref('')
+const fecha_salida = ref('')
 const id = router.currentRoute.value.params['id']
 
 async function editarReserva() {
   await http
     .patch(`${ENDPOINT}/${id}`, {
-      fecha_reserva: fecha_reserva.value, //esto era nombre
+      fecha_salida: fecha_salida.value, //esto era nombre
       fecha_entrada: fecha_entrada.value
     })
     .then(() => router.push('/reservas'))
@@ -28,7 +29,7 @@ async function editarReserva() {
 
 async function getReserva() {
   await http.get(`${ENDPOINT}/${id}`).then((response) => {
-    ;(fecha_reserva.value = response.data.fecha_reserva), 
+    ;(fecha_salida.value = response.data.fecha_salida), 
     (fecha_entrada.value = response.data.fecha_entrada)
   })
 }
@@ -60,10 +61,7 @@ onMounted(() => {
 
     <div class="row">
       <form @submit.prevent="editarReserva">
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" v-model="fecha_reserva" placeholder="Nombre" required />
-          <label for="fecha_reserva">fecha reserva</label>
-        </div>
+        
         <div class="form-floating">
           <input
             type="text"
@@ -73,6 +71,16 @@ onMounted(() => {
             required
           />
           <label for="fecha_entrada">Fecha Entrada</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            v-model="fecha_salida"
+            placeholder="Fecha salida"
+            required
+          />
+          <label for="fecha_salida">Fecha salida</label>
         </div>
         <div class="text-center mt-3">
           <button type="submit" class="btn btn-primary btn-lg">
