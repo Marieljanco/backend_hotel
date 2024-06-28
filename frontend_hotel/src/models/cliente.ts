@@ -5,6 +5,7 @@ export interface Cliente {
   ci: number
   nombre: string
   apellido: string
-  
+  telefono: number
+
   reservas: Reserva[]
 }

@@ -1,4 +1,4 @@
-<!-- <script setup lang="ts">
+<script setup lang="ts">
 import { ref } from 'vue'
 import http from '@/plugins/axios'
 import router from '@/router'
@@ -9,14 +9,17 @@ const props = defineProps<{
 
 const ENDPOINT = props.ENDPOINT_API ?? ''
 const tipoHabitacion = ref('')
+const estado_de_disponibilidad = ref('')
 const precio_por_hora = ref('')
-const ci = ref('')
-const telefono = ref('')
 
-async function crearCliente() {
+async function crearHabitacion() {
   await http
-    .post(ENDPOINT, { tipoHabitacion: tipoHabitacion.value, apellido: apellido.value, ci: ci.value, telefono: telefono.value })
-    .then(() => router.push('/clientes'))
+    .post(ENDPOINT, {
+      tipoHabitacion: tipoHabitacion.value,
+      precio_por_hora: precio_por_hora.value,
+      estado_de_disponibilidad: estado_de_disponibilidad.value
+    })
+    .then(() => router.push('/habitaciones'))
 }
 
 function goBack() {
@@ -30,51 +33,47 @@ function goBack() {
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><RouterLink to="/">Inicio</RouterLink></li>
         <li class="breadcrumb-item">
-          <RouterLink to="/clientes">Clientes</RouterLink>
+          <RouterLink to="/habitaciones">Habitaciones</RouterLink>
         </li>
         <li class="breadcrumb-item active" aria-current="page">Crear</li>
       </ol>
     </nav>
 
     <div class="row">
-      <h2>Crear Nuevo Cliente</h2>
+      <h2>Crear Nueva Habitacion</h2>
     </div>
 
     <div class="row">
-      <form @submit.prevent="crearCliente">
+      <form @submit.prevent="crearHabitacion">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" v-model="tipoHabitacion" placeholder="tipoHabitacion" required />
-          <label for="tipoHabitacion">tipoHabitacion</label>
+          <input
+            type="text"
+            class="form-control"
+            v-model="tipoHabitacion"
+            placeholder="tipoHabitacion"
+            required
+          />
+          <label for="tipoHabitacion">Tipo Habitacion</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="number"
+            class="form-control"
+            v-model="precio_por_hora"
+            placeholder="precio_por_hora"
+            required
+          />
+          <label for="precio_por_hora">Precio por hora</label>
         </div>
         <div class="form-floating">
           <input
             type="text"
             class="form-control"
-            v-model="apellido"
-            placeholder="Apellido"
+            v-model="estado_de_disponibilidad"
+            placeholder="estado_de_disponibilidad"
             required
           />
-          <label for="apellido">Apellido</label>
-        </div>
-        <div class="form-floating">
-          <input
-            type="number"
-            class="form-control"
-            v-model="ci"
-            placeholder="Ci"
-            required
-          />
-          <label for="ci">Ci</label>
-        </div>
-        <div class="form-floating">
-          <input
-            type="number"
-            class="form-control"
-            v-model="telefono"
-            placeholder="Telefono"
-            required
-          />
-          <label for="telefono">Telefono</label>
+          <label for="estado_de_disponibilidad">Estado de disponibilidad</label>
         </div>
         <div class="text-center mt-3">
           <button type="submit" class="btn btn-primary btn-lg">
@@ -89,4 +88,4 @@ function goBack() {
   </div>
 </template>
 
-<style scoped></style> -->
+<style scoped></style>

@@ -40,6 +40,20 @@ const router = createRouter({
       ]
     },
     {
+      path: '/habitaciones',
+      name: 'habitaciones',
+      component: () => import('../views/HabitacionView.vue'),
+      children: [
+        { path: '', component: () => import('../components/habitacion/HabitacionList.vue') },
+        { path: 'crear', component: () => import('../components/habitacion/HabitacionCreate.vue') },
+        {
+          path: 'editar/:id',
+          component: () => import('../components/habitacion/HabitacionEdit.vue')
+        }
+      ]
+    },
+
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
